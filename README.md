@@ -31,6 +31,13 @@ https://github.com/user-attachments/assets/b5c4a318-8a95-4bfb-a101-8cd1938630d8
 claude skill install vLX42/remotion-video-skill
 ```
 
+Or copy the skill directly into your project:
+
+```bash
+git clone https://github.com/vLX42/remotion-video-skill.git /tmp/remotion-video-skill
+cp -r /tmp/remotion-video-skill/.claude/ /path/to/your/project/
+```
+
 ### GitHub Copilot (VS Code)
 
 Copy the skill into your project's `.github/skills/` directory:
