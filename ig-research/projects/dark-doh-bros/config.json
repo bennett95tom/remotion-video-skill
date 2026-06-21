@@ -1,0 +1,9 @@
+{
+  "name": "Dark D'oh Bros",
+  "niche": "22-inch NYC-style pizza, poolish dough, long ferment cold proof — Brighton UK",
+  "searchTerms": ["nycpizza", "newyorkpizza", "pizzauk"],
+  "competitors": [],
+  "browserPort": 9222,
+  "maxPostsPerSearch": 30,
+  "maxCompetitorPosts": 10
+}

@@ -1,0 +1,7 @@
+node_modules/
+projects/*/raw-posts.json
+projects/*/report.html
+projects/*/report.md
+projects/*/report-analysis.json
+projects/*/transcripts/
+projects/*/hook-screenshots/
