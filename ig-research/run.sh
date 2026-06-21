@@ -49,11 +49,16 @@ fi
 
 if ! python3 -m yt_dlp --version &>/dev/null 2>&1; then
   echo "Installing yt-dlp..."
-  pip3 install --break-system-packages yt-dlp 2>/dev/null || pip3 install yt-dlp
+  if command -v brew &>/dev/null; then
+    brew install yt-dlp
+  else
+    pip3 install --break-system-packages yt-dlp 2>/dev/null || pip3 install yt-dlp
+  fi
 fi
 
 if ! python3 -m whisper --help &>/dev/null 2>&1; then
   echo "Installing openai-whisper..."
+  pip3 install --break-system-packages setuptools 2>/dev/null || true
   pip3 install --break-system-packages openai-whisper 2>/dev/null || pip3 install openai-whisper
 fi
 
