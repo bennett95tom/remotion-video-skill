@@ -29,10 +29,19 @@ random.seed(SEED)
 
 # Known DDB footage locations left by the earlier sessions (used if they exist)
 SOURCE_DIRS = [
-    HOME/"DDB_EVIL_INTERMISSION_TAKEOVER"/"hooked_pizza_microclips_final"/"clips_3frame",
+    HOME/"Downloads",                                    # AirDrops land here
     HOME/"Desktop"/"DDB_SOURCE",
     HOME/"Desktop"/"DDB_SOURCE"/"use this dough throw",
+    HOME/"DDB_EVIL_INTERMISSION_TAKEOVER"/"hooked_pizza_microclips_final"/"clips_3frame",
 ]
+
+# Folders/files matching these get weighted heavier in the cut (more of them)
+BOOST_WORDS   = ["dough", "throw", "toss", "spin", "stretch"]
+BOOST_FACTOR  = 3        # dough-throw clips appear ~3x as often
+
+# Anything whose filename hits these is skipped (posters/menus/cards/graphics)
+SKIP_WORDS = ["poster","menu","card","logo","proof","story","price",
+              "flyer","brand","design","template","wordmark","mark"]
 EXTRA_CLIPS = [
     HOME/"DDB_EVIL_INTERMISSION_TAKEOVER"/"source_DZK09wzieGH_clean.mp4",
 ]
@@ -69,14 +78,19 @@ def gather_sources():
     for c in EXTRA_CLIPS:
         if c.exists():
             vids.append(c)
-    # de-dup, keep only readable ones
+    # de-dup, drop posters/menus/cards, keep only readable video, weight throws
     seen, good = set(), []
     for v in vids:
         if v in seen:
             continue
         seen.add(v)
-        if dur(v) > 0.05:
-            good.append(v)
+        low = str(v).lower()
+        if any(w in low for w in SKIP_WORDS):
+            continue
+        if dur(v) <= 0.05:
+            continue
+        weight = BOOST_FACTOR if any(w in low for w in BOOST_WORDS) else 1
+        good.extend([v] * weight)      # heavier weight = appears more in the cut
     return good
 
 def find_logo():
